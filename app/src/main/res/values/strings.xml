@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">DependencyInjection</string>
+    <string name="tacos_order">Orden de tacos</string>
+    <string name="wheat_tortilla">Harina</string>
+    <string name="corn_tortilla">Maíz</string>
+    <string name="tortilla_selector">Seleccione tortilla</string>
+    <string name="note_additional">Nota</string>
+    <string name="add">Agregar</string>
+    <string name="check">Consultar</string>
+    <string-array name="tacos_array">
+        <item>Pastor</item>
+        <item>Suadero</item>
+        <item>Asada</item>
+        <item>Percheron</item>
+        <item>Pibil</item>
+        <item>Pescado</item>
+    </string-array>
 </resources>
