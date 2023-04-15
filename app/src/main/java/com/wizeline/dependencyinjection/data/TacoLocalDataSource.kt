@@ -4,8 +4,13 @@ import android.os.Handler
 import android.os.Looper
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TacoLocalDataSource (private val tacoDao: TacoDao): TacoDataSource {
+@Singleton
+class TacoLocalDataSource @Inject constructor (
+    private val tacoDao: TacoDao
+    ): TacoDataSource {
 
     private val executorService: ExecutorService = Executors.newFixedThreadPool(4)
     private val mainThreadHandler by lazy {
