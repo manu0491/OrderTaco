@@ -1,4 +1,4 @@
-package com.wizeline.dependencyinjection.ui
+package com.wizeline.dependencyinjection.ui.checkout
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

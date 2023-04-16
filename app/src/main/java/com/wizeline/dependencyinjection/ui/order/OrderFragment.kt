@@ -1,4 +1,4 @@
-package com.wizeline.dependencyinjection.ui
+package com.wizeline.dependencyinjection.ui.order
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +15,8 @@ import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.databinding.FragmentOrderBinding
 import com.wizeline.dependencyinjection.navigation.AppNavigator
 import com.wizeline.dependencyinjection.navigation.Screens
+import com.wizeline.dependencyinjection.ui.OrderViewModel
+import com.wizeline.dependencyinjection.ui.TACO_STATE
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -22,7 +24,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class OrderFragment : Fragment() {
 
-    private val viewModel:OrderViewModel by viewModels()
+    private val viewModel: OrderViewModel by viewModels()
 
     private var _binding: FragmentOrderBinding? = null
 

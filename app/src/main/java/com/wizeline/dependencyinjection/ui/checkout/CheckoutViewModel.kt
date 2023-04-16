@@ -1,4 +1,4 @@
-package com.wizeline.dependencyinjection.ui
+package com.wizeline.dependencyinjection.ui.checkout
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

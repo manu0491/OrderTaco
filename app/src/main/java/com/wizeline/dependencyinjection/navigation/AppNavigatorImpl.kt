@@ -2,8 +2,8 @@ package com.wizeline.dependencyinjection.navigation
 
 import androidx.fragment.app.FragmentActivity
 import com.wizeline.dependencyinjection.R
-import com.wizeline.dependencyinjection.ui.CheckoutFragment
-import com.wizeline.dependencyinjection.ui.OrderFragment
+import com.wizeline.dependencyinjection.ui.checkout.CheckoutFragment
+import com.wizeline.dependencyinjection.ui.order.OrderFragment
 import javax.inject.Inject
 
 class AppNavigatorImpl @Inject constructor(private val activity: FragmentActivity): AppNavigator {
