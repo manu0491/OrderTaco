@@ -8,6 +8,7 @@
     <string name="add">Agregar</string>
     <string name="check">Consultar</string>
     <string-array name="tacos_array">
+        <item>Elija tipo de taco</item>
         <item>Pastor</item>
         <item>Suadero</item>
         <item>Asada</item>

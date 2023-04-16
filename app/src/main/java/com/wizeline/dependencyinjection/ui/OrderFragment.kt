@@ -61,8 +61,10 @@ class OrderFragment : Fragment() {
         with(binding) {
             binding.tacoSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    val type: String = parent?.getItemAtPosition(position) as String
-                    viewModel.setType(type)
+                    if (position != 0) {
+                        val type: String = parent?.getItemAtPosition(position) as String
+                        viewModel.setType(type)
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -87,7 +89,7 @@ class OrderFragment : Fragment() {
             note.doOnTextChanged { text, start, before, count ->
                 viewModel.setNote(text.toString())
             }
-
+            viewModel.setTortilla(radioCorn.text.toString())
         }
     }
 
