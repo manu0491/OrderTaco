@@ -1,7 +1,6 @@
 package com.wizeline.dependencyinjection.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,13 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.wizeline.dependencyinjection.R
 import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.databinding.FragmentOrderBinding
 import com.wizeline.dependencyinjection.navigation.AppNavigator
 import com.wizeline.dependencyinjection.navigation.Screens
-
 
 class OrderFragment : Fragment() {
 
@@ -42,6 +41,7 @@ class OrderFragment : Fragment() {
         populateSpinner()
         setupListeners()
         setupObservers()
+        viewModel.setTortilla(binding.radioCorn.text.toString())
     }
 
 
@@ -89,20 +89,30 @@ class OrderFragment : Fragment() {
             note.doOnTextChanged { text, start, before, count ->
                 viewModel.setNote(text.toString())
             }
-            viewModel.setTortilla(radioCorn.text.toString())
         }
     }
 
     private fun setupObservers(){
         viewModel.taco.observe(viewLifecycleOwner,:: checkTacoParams)
+        viewModel.tacoState.observe(viewLifecycleOwner,::checkTacoState)
     }
 
     private fun checkTacoParams(taco: Taco){
         with(binding) {
-            buttonAdd.isVisible = taco.type.isNotEmpty() && taco.tortilla.isNotEmpty()
+            val tacoIsDone = taco.type.isNotEmpty() && taco.tortilla.isNotEmpty()
+            buttonAdd.isVisible = tacoIsDone
         }
     }
 
+    private fun checkTacoState(tacoState: TACO_STATE) {
+        when(tacoState) {
+            TACO_STATE.ORDERING ->{}
+            TACO_STATE.DONE -> {
+                populateSpinner()
+                viewModel.setTortilla(binding.radioCorn.text.toString())
+            }
+        }
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
