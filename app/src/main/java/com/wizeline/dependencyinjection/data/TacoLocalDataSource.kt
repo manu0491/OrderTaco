@@ -35,4 +35,10 @@ class TacoLocalDataSource @Inject constructor (
             tacoDao.deleteTable()
         }
     }
+
+    override fun removeTaco(taco: Taco) {
+        executorService.execute {
+            tacoDao.deleteTaco(taco)
+        }
+    }
 }

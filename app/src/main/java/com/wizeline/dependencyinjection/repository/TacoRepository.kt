@@ -16,4 +16,8 @@ class TacoRepository @Inject constructor(
     fun removeLocalTacos(){
         tacoLocalDataSource.removeTacos()
     }
+
+    fun removeTaco(taco: Taco) {
+        tacoLocalDataSource.removeTaco(taco)
+    }
 }

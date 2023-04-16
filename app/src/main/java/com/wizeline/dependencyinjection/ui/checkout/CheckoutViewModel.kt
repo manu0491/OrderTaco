@@ -2,6 +2,7 @@ package com.wizeline.dependencyinjection.ui.checkout
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.repository.TacoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,5 +22,9 @@ class CheckoutViewModel @Inject constructor(
     }
     fun removeLocalTacos(){
         tacoRepository.removeLocalTacos()
+    }
+
+    fun removeTaco(taco: Taco) {
+        tacoRepository.removeTaco(taco)
     }
 }
