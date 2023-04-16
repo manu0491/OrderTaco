@@ -59,11 +59,13 @@ class OrderFragment : Fragment() {
 
     private fun setupListeners(){
         with(binding) {
+            binding.tacoSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                    val type: String = parent?.getItemAtPosition(position) as String
+                    viewModel.setType(type)
+                }
 
-            binding.tacoSpinner.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
-                val type: String = adapterView.getItemAtPosition(i) as String
-                viewModel.setType(type)
-
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
             buttonAdd.setOnClickListener {
                 viewModel.addTacoToOrder()
