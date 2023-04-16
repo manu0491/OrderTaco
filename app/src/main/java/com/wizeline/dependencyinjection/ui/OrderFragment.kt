@@ -60,7 +60,7 @@ class OrderFragment : Fragment() {
     private fun setupListeners(){
         with(binding) {
             binding.tacoSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View, position: Int, id: Long) {
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     val type: String = parent?.getItemAtPosition(position) as String
                     viewModel.setType(type)
                 }
