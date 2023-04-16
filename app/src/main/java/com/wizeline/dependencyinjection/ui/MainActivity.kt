@@ -8,7 +8,6 @@ import com.wizeline.dependencyinjection.navigation.Screens
 
 class MainActivity : AppCompatActivity() {
 
-
    lateinit var appNavigator: AppNavigator
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

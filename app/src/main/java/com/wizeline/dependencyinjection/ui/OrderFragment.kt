@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.viewModels
 import com.wizeline.dependencyinjection.R
 import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.databinding.FragmentOrderBinding
@@ -18,8 +19,8 @@ import com.wizeline.dependencyinjection.navigation.Screens
 
 class OrderFragment : Fragment() {
 
+    private val viewModel:OrderViewModel by viewModels()
 
-    lateinit var viewModel: OrderViewModel
     private var _binding: FragmentOrderBinding? = null
 
     lateinit var navigation: AppNavigator
