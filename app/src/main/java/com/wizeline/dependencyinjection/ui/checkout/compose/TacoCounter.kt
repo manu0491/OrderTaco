@@ -14,19 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun StatefulCounter(modifier: Modifier = Modifier) {
+fun StatefulCounter(tacoCount: Int, modifier: Modifier = Modifier) {
     var count by rememberSaveable { mutableStateOf(0) }
-    StatelessCounter(count, { count++ }, modifier)
+    count = tacoCount
+    StatelessCounter(count, modifier)
 }
 
 @Composable
-fun StatelessCounter(count: Int, onIncrement: () -> Unit, modifier: Modifier = Modifier) {
+fun StatelessCounter(count: Int, modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
         if (count > 0) {
-            Text("You've had $count tacos.")
-        }
-        Button(onClick = onIncrement, Modifier.padding(top = 8.dp), enabled = count < 10) {
-            Text("Add one")
+            val tacoText = if (count <= 1) "taco" else "tacos"
+            Text("Has ordenado $count $tacoText")
         }
     }
 }

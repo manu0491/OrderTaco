@@ -14,7 +14,11 @@ fun CheckoutScreen(
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
-       OrderTacoList(
+        StatefulCounter(
+            tacoCount = tacoList.size,
+            modifier = modifier
+        )
+        OrderTacoList(
            list = tacoList,
            removeTaco = onRemoveTaco,
            dateFormatter
