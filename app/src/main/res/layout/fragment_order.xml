@@ -66,6 +66,7 @@
         android:paddingStart="@dimen/dp_14"
         android:paddingEnd="@dimen/dp_14"
         android:textSize="@dimen/dp_16"
+        android:textAlignment="textStart"
         android:maxLines="10"
         android:lines="5"
         app:layout_constraintStart_toStartOf="parent"

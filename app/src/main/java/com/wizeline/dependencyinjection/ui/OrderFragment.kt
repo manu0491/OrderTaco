@@ -15,14 +15,18 @@ import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.databinding.FragmentOrderBinding
 import com.wizeline.dependencyinjection.navigation.AppNavigator
 import com.wizeline.dependencyinjection.navigation.Screens
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+
+@AndroidEntryPoint
 class OrderFragment : Fragment() {
 
     private val viewModel:OrderViewModel by viewModels()
 
     private var _binding: FragmentOrderBinding? = null
 
-    lateinit var navigation: AppNavigator
+    @Inject lateinit var navigation: AppNavigator
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

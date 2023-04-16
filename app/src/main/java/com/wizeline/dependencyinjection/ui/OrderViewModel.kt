@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.repository.TacoRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class OrderViewModel (
+@HiltViewModel
+class OrderViewModel @Inject constructor(
     private val tacoRepository: TacoRepository
 ): ViewModel() {
 
@@ -36,12 +39,6 @@ class OrderViewModel (
 
     private fun addLocalTaco(taco: Taco){
         tacoRepository.addLocalTaco(taco)
-    }
-    fun getLocalAllTacos(callback: (List<Taco>) -> Unit){
-        tacoRepository.getLocalAllTacos(callback)
-    }
-    fun removeLocalTacos(){
-        tacoRepository.removeLocalTacos()
     }
 
     fun addTacoToOrder() {

@@ -5,10 +5,13 @@ import android.os.Bundle
 import com.wizeline.dependencyinjection.R
 import com.wizeline.dependencyinjection.navigation.AppNavigator
 import com.wizeline.dependencyinjection.navigation.Screens
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-   lateinit var appNavigator: AppNavigator
+   @Inject lateinit var appNavigator: AppNavigator
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
