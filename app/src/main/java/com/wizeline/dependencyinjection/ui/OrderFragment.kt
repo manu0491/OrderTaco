@@ -110,6 +110,7 @@ class OrderFragment : Fragment() {
             TACO_STATE.DONE -> {
                 populateSpinner()
                 viewModel.setTortilla(binding.radioCorn.text.toString())
+                binding.note.text.clear()
             }
         }
     }
