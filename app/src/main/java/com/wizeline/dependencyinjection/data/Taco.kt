@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "tacos")
-data class Taco(val type: String, val tortilla: String, val note: String, val timestamp: Long) {
+data class Taco(val type: String, val tortilla: String, val note: String? =null, val timestamp: Long) {
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 }

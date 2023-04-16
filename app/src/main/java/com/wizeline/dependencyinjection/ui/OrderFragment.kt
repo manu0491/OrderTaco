@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import androidx.core.widget.doOnTextChanged
 import com.wizeline.dependencyinjection.R
 import com.wizeline.dependencyinjection.databinding.FragmentOrderBinding
 
@@ -30,8 +34,8 @@ class OrderFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //https://developer.android.com/develop/ui/views/components/spinner
         populateSpinner()
+        setup()
     }
 
 
@@ -44,6 +48,36 @@ class OrderFragment : Fragment() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_item)
             spinner.adapter = adapter
+        }
+    }
+
+    private fun setup(){
+        with(binding) {
+
+            binding.tacoSpinner.onItemClickListener = AdapterView.OnItemClickListener { adapterView, view, i, l ->
+
+                }
+            buttonAdd.setOnClickListener {
+
+            }
+
+            buttonCheck.setOnClickListener {
+
+            }
+            radioGroupTortillasSelector.setOnCheckedChangeListener { radioGroup, checkedId ->
+                when(checkedId) {
+                    R.id.radio_corn -> {
+
+                    }
+                    R.id.radio_wheat -> {
+
+                    }
+                }
+            }
+            note.doOnTextChanged { text, start, before, count ->
+
+            }
+
         }
     }
 

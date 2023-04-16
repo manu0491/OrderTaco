@@ -40,18 +40,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
     <RadioGroup
-        android:id="@+id/tortilla_selector"
+        android:id="@+id/radio_group_tortillas_selector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="@dimen/dp_14"
         app:layout_constraintTop_toBottomOf="@id/tortilla_selector_text"
         >
-        <RadioButton android:id="@+id/radio_ninjas"
+        <RadioButton android:id="@+id/radio_corn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:checked="true"
             android:text="@string/corn_tortilla"/>
-        <RadioButton android:id="@+id/radio_pirates"
+        <RadioButton android:id="@+id/radio_wheat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/wheat_tortilla"/>
@@ -68,7 +69,7 @@
         android:maxLines="10"
         android:lines="5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tortilla_selector"
+        app:layout_constraintTop_toBottomOf="@+id/radio_group_tortillas_selector"
         />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide"
