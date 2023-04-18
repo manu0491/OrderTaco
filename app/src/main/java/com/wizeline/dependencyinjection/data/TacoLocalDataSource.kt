@@ -12,33 +12,20 @@ class TacoLocalDataSource @Inject constructor (
     private val tacoDao: TacoDao
     ): TacoDataSource {
 
-    private val executorService: ExecutorService = Executors.newFixedThreadPool(4)
-    private val mainThreadHandler by lazy {
-        Handler(Looper.getMainLooper())
+    override suspend fun addTaco(taco: Taco) {
+        tacoDao.inserAll(taco)
     }
 
-    override fun addTaco(taco: Taco) {
-        executorService.execute {
-            tacoDao.inserAll(taco)
-        }
+    override suspend fun getAllTacos(callback: (List<Taco>) -> Unit) {
+        val tacos = tacoDao.getAll()
+        callback(tacos)
     }
 
-    override fun getAllTacos(callback: (List<Taco>) -> Unit) {
-        executorService.execute {
-            val tacos = tacoDao.getAll()
-            mainThreadHandler.post { callback(tacos) }
-        }
+    override suspend fun removeTacos() {
+        tacoDao.deleteTable()
     }
 
-    override fun removeTacos() {
-        executorService.execute {
-            tacoDao.deleteTable()
-        }
-    }
-
-    override fun removeTaco(taco: Taco) {
-        executorService.execute {
-            tacoDao.deleteTaco(taco)
-        }
+    override suspend fun removeTaco(taco: Taco) {
+        tacoDao.deleteTaco(taco)
     }
 }

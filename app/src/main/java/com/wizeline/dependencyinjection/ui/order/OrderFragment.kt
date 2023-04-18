@@ -10,6 +10,9 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.wizeline.dependencyinjection.R
 import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.databinding.FragmentOrderBinding
@@ -17,7 +20,10 @@ import com.wizeline.dependencyinjection.navigation.AppNavigator
 import com.wizeline.dependencyinjection.navigation.Screens
 import com.wizeline.dependencyinjection.ui.OrderViewModel
 import com.wizeline.dependencyinjection.ui.TACO_STATE
+import com.wizeline.dependencyinjection.ui.TacoUiState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -47,6 +53,7 @@ class OrderFragment : Fragment() {
         populateSpinner()
         setupListeners()
         setupObservers()
+        uiStateFlow()
         viewModel.setTortilla(binding.radioCorn.text.toString())
     }
 
@@ -100,9 +107,21 @@ class OrderFragment : Fragment() {
 
     private fun setupObservers(){
         viewModel.taco.observe(viewLifecycleOwner,:: checkTacoParams)
-        viewModel.tacoState.observe(viewLifecycleOwner,::checkTacoState)
+        //viewModel.tacoState.observe(viewLifecycleOwner,::checkTacoState)
     }
 
+    private fun uiStateFlow() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.tacoState.collect {
+                   when(it){
+                       is TacoUiState.OrderingState -> checkTacoState(it.ordering)
+                       else ->{}
+                   }
+                }
+            }
+        }
+    }
     private fun checkTacoParams(taco: Taco){
         with(binding) {
             val tacoIsDone = taco.type.isNotEmpty() && taco.tortilla.isNotEmpty()
@@ -112,6 +131,7 @@ class OrderFragment : Fragment() {
 
     private fun checkTacoState(tacoState: TACO_STATE) {
         when(tacoState) {
+            TACO_STATE.LOADING ->{}
             TACO_STATE.ORDERING ->{}
             TACO_STATE.DONE -> {
                 populateSpinner()

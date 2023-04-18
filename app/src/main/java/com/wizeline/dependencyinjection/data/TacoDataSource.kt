@@ -1,9 +1,9 @@
 package com.wizeline.dependencyinjection.data
 
 interface TacoDataSource {
-    fun addTaco(taco: Taco)
-    fun getAllTacos(callback: (List<Taco>) -> Unit)
-    fun removeTacos()
+    suspend fun addTaco(taco: Taco)
+    suspend fun getAllTacos(callback: (List<Taco>) -> Unit)
+    suspend fun removeTacos()
 
-    fun removeTaco(taco: Taco)
+    suspend fun removeTaco(taco: Taco)
 }

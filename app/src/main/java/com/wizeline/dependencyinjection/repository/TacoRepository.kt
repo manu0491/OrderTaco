@@ -7,17 +7,17 @@ import javax.inject.Inject
 class TacoRepository @Inject constructor(
     private val tacoLocalDataSource: TacoDataSource
 ) {
-    fun addLocalTaco(taco: Taco){
+    suspend fun addLocalTaco(taco: Taco){
         tacoLocalDataSource.addTaco(taco)
     }
-    fun getLocalAllTacos(callback: (List<Taco>) -> Unit){
+    suspend fun getLocalAllTacos(callback: (List<Taco>) -> Unit){
         tacoLocalDataSource.getAllTacos(callback)
     }
-    fun removeLocalTacos(){
+    suspend fun removeLocalTacos(){
         tacoLocalDataSource.removeTacos()
     }
 
-    fun removeTaco(taco: Taco) {
+    suspend fun removeTaco(taco: Taco) {
         tacoLocalDataSource.removeTaco(taco)
     }
 }

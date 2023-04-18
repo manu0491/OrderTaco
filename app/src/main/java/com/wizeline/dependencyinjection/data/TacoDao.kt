@@ -10,16 +10,16 @@ import androidx.room.Query
 interface TacoDao {
 
     @Query("SELECT * FROM tacos ORDER BY id DESC")
-    fun getAll(): List<Taco>
+    suspend fun getAll(): List<Taco>
 
     @Insert
-    fun inserAll(vararg tacos: Taco)
+    suspend fun inserAll(vararg tacos: Taco)
 
     @Delete
-    fun deleteTaco(vararg tacos: Taco)
+    suspend fun deleteTaco(vararg tacos: Taco)
 
     @Query("DELETE FROM tacos")
-    fun deleteTable()
+    suspend fun deleteTable()
 
     @Query("SELECT * FROM tacos ORDER BY id DESC")
     fun selectAllTacosCursor(): Cursor
