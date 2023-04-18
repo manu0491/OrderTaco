@@ -26,32 +26,17 @@ class CheckoutFragment : Fragment() {
     private val viewModel: CheckoutViewModel by viewModels()
     @Inject lateinit var dateFormatter: DateFormatter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCheckoutBinding.inflate(inflater, container, false)
-        /*binding.composeView.setContent {
-            MaterialTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    CheckoutScreen(viewModel = viewModel)
-                }
-            }
-        }*/
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLocalAllTacos()
         setupObserver()
     }
 

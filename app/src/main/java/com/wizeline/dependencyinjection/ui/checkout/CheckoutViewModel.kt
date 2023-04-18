@@ -23,6 +23,9 @@ class CheckoutViewModel @Inject constructor(
     val tacoList: LiveData<List<Taco>> =_tacoList
 
 
+    init {
+        getLocalAllTacos()
+    }
     fun getLocalAllTacos(){
         viewModelScope.launch(dispatcher) {
             tacoRepository.getLocalAllTacos { tacos ->

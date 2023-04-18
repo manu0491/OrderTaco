@@ -20,10 +20,4 @@ interface TacoDao {
 
     @Query("DELETE FROM tacos")
     suspend fun deleteTable()
-
-    @Query("SELECT * FROM tacos ORDER BY id DESC")
-    fun selectAllTacosCursor(): Cursor
-
-    @Query("SELECT * FROM tacos WHERE id =:id")
-    fun selectTacoById(id: Long): Cursor?
 }
