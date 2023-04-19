@@ -7,14 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.repository.TacoRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class CheckoutViewModel @Inject constructor(
+class CheckoutViewModel (
     private val tacoRepository: TacoRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): ViewModel() {

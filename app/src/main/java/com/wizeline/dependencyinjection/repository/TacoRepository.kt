@@ -2,9 +2,8 @@ package com.wizeline.dependencyinjection.repository
 
 import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.data.TacoDataSource
-import javax.inject.Inject
 
-class TacoRepository @Inject constructor(
+class TacoRepository(
     private val tacoLocalDataSource: TacoDataSource
 ) {
     suspend fun addLocalTaco(taco: Taco){

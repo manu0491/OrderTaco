@@ -4,9 +4,8 @@ import androidx.fragment.app.FragmentActivity
 import com.wizeline.dependencyinjection.R
 import com.wizeline.dependencyinjection.ui.checkout.CheckoutFragment
 import com.wizeline.dependencyinjection.ui.order.OrderFragment
-import javax.inject.Inject
 
-class AppNavigatorImpl @Inject constructor(private val activity: FragmentActivity): AppNavigator {
+class AppNavigatorImpl(private val activity: FragmentActivity): AppNavigator {
 
     override fun navigateTo(screen: Screens) {
         val fragment = when(screen) {

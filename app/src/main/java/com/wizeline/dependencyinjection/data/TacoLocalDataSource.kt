@@ -1,14 +1,6 @@
 package com.wizeline.dependencyinjection.data
 
-import android.os.Handler
-import android.os.Looper
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import javax.inject.Inject
-import javax.inject.Singleton
-
-@Singleton
-class TacoLocalDataSource @Inject constructor (
+class TacoLocalDataSource(
     private val tacoDao: TacoDao
     ): TacoDataSource {
 

@@ -1,4 +1,4 @@
-package com.wizeline.dependencyinjection.ui
+package com.wizeline.dependencyinjection.ui.order
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,16 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.repository.TacoRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-@HiltViewModel
-class OrderViewModel @Inject constructor(
+
+class OrderViewModel (
     private val tacoRepository: TacoRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): ViewModel() {

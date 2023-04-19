@@ -18,23 +18,15 @@ import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.databinding.FragmentOrderBinding
 import com.wizeline.dependencyinjection.navigation.AppNavigator
 import com.wizeline.dependencyinjection.navigation.Screens
-import com.wizeline.dependencyinjection.ui.OrderViewModel
-import com.wizeline.dependencyinjection.ui.TACO_STATE
-import com.wizeline.dependencyinjection.ui.TacoUiState
-import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-
-@AndroidEntryPoint
 class OrderFragment : Fragment() {
 
     private val viewModel: OrderViewModel by viewModels()
 
     private var _binding: FragmentOrderBinding? = null
 
-    @Inject lateinit var navigation: AppNavigator
+    lateinit var navigation: AppNavigator
     private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
