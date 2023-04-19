@@ -28,13 +28,11 @@ class OrderViewModel (
         val taco = taco.value
         _taco.value = taco?.copy(type = type)
         _tacoState.value = TacoUiState.OrderingState(TACO_STATE.ORDERING)
-        //_tacoState.postValue(TACO_STATE.ORDERING)
     }
 
     fun setTortilla(tortilla: String) {
         val taco = taco.value
         _taco.value = taco?.copy(tortilla = tortilla)
-        //_tacoState.postValue(TACO_STATE.ORDERING)
         _tacoState.value = TacoUiState.OrderingState(TACO_STATE.ORDERING)
     }
 
@@ -42,7 +40,6 @@ class OrderViewModel (
         val taco = taco.value
         _taco.value = taco?.copy(note = note)
         _tacoState.value = TacoUiState.OrderingState(TACO_STATE.ORDERING)
-        //_tacoState.postValue(TACO_STATE.ORDERING)
     }
 
     private fun addLocalTaco(taco: Taco){
@@ -57,7 +54,6 @@ class OrderViewModel (
             addLocalTaco(taco)
             _taco.value = emptyTaco
             _tacoState.value = TacoUiState.OrderingState(TACO_STATE.DONE)
-            //_tacoState.postValue(TACO_STATE.DONE)
         }
     }
 }

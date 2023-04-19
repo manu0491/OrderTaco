@@ -99,7 +99,6 @@ class OrderFragment : Fragment() {
 
     private fun setupObservers(){
         viewModel.taco.observe(viewLifecycleOwner,:: checkTacoParams)
-        //viewModel.tacoState.observe(viewLifecycleOwner,::checkTacoState)
     }
 
     private fun uiStateFlow() {
