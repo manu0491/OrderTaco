@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.wizeline.dependencyinjection.databinding.FragmentCheckoutBinding
 import com.wizeline.dependencyinjection.ui.checkout.compose.CheckoutScreen
 import com.wizeline.dependencyinjection.util.DateFormatter
@@ -29,13 +30,16 @@ class CheckoutFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCheckoutBinding.inflate(inflater, container, false)
-        binding.composeView.setContent {
-            MaterialTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    CheckoutScreen(dateFormatter = dateFormatter)
+        binding.composeView.apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                MaterialTheme {
+                    Surface(
+                        modifier = Modifier.fillMaxSize(),
+                        color = MaterialTheme.colors.background
+                    ) {
+                        CheckoutScreen(dateFormatter = dateFormatter)
+                    }
                 }
             }
         }
