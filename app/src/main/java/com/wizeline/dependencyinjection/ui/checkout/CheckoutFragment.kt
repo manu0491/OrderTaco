@@ -21,7 +21,6 @@ class CheckoutFragment : Fragment() {
 
     private var _binding: FragmentCheckoutBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CheckoutViewModel by viewModels()
     @Inject lateinit var dateFormatter: DateFormatter
 
 
@@ -36,12 +35,7 @@ class CheckoutFragment : Fragment() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    CheckoutScreen(
-                        onRemoveTaco = {taco ->
-                            viewModel.removeTaco(taco)
-                        },
-                        dateFormatter = dateFormatter
-                    )
+                    CheckoutScreen(dateFormatter = dateFormatter)
                 }
             }
         }
@@ -51,11 +45,6 @@ class CheckoutFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getLocalAllTacos()
     }
 
     companion object {

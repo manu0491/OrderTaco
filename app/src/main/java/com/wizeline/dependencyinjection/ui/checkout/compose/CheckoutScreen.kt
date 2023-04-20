@@ -5,14 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.ui.checkout.CheckoutViewModel
 import com.wizeline.dependencyinjection.util.DateFormatter
 
 @Composable
 fun CheckoutScreen(
     viewModel: CheckoutViewModel = hiltViewModel(),
-    onRemoveTaco: (Taco) -> Unit,
     dateFormatter: DateFormatter,
     modifier: Modifier = Modifier
 ) {
@@ -24,7 +22,7 @@ fun CheckoutScreen(
         )
         OrderTacoList(
            list = tacoListState.value ?: emptyList(),
-           removeTaco = onRemoveTaco,
+           removeTaco = { viewModel.removeTaco(it) },
            dateFormatter
         )
     }
