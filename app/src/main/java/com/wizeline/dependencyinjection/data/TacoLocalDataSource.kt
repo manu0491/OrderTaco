@@ -1,9 +1,5 @@
 package com.wizeline.dependencyinjection.data
 
-import android.os.Handler
-import android.os.Looper
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,9 +12,8 @@ class TacoLocalDataSource @Inject constructor (
         tacoDao.inserAll(taco)
     }
 
-    override suspend fun getAllTacos(callback: (List<Taco>) -> Unit) {
-        val tacos = tacoDao.getAll()
-        callback(tacos)
+    override suspend fun getAllTacos(): List<Taco> {
+       return tacoDao.getAll()
     }
 
     override suspend fun removeTacos() {

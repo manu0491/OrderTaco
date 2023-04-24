@@ -10,6 +10,8 @@ import com.wizeline.dependencyinjection.repository.TacoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,11 +30,8 @@ class CheckoutViewModel @Inject constructor(
     }
     fun getLocalAllTacos(){
         viewModelScope.launch(dispatcher) {
-            tacoRepository.getLocalAllTacos { tacos ->
-                for (taco in tacos) {
-                    Log.d("test", "taco ordered: ${taco}")
-                }
-                _tacoList.postValue(tacos)
+            tacoRepository.getLocalAllTacos().run {
+                _tacoList.postValue(this)
             }
         }
 

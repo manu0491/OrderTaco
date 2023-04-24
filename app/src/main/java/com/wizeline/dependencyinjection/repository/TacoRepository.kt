@@ -1,17 +1,18 @@
 package com.wizeline.dependencyinjection.repository
 
+import androidx.annotation.VisibleForTesting
 import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.data.TacoDataSource
 import javax.inject.Inject
 
 class TacoRepository @Inject constructor(
-    private val tacoLocalDataSource: TacoDataSource
+    @get:VisibleForTesting val tacoLocalDataSource: TacoDataSource
 ) {
     suspend fun addLocalTaco(taco: Taco){
         tacoLocalDataSource.addTaco(taco)
     }
-    suspend fun getLocalAllTacos(callback: (List<Taco>) -> Unit){
-        tacoLocalDataSource.getAllTacos(callback)
+    suspend fun getLocalAllTacos(): List<Taco>{
+       return tacoLocalDataSource.getAllTacos()
     }
     suspend fun removeLocalTacos(){
         tacoLocalDataSource.removeTacos()
