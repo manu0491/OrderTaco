@@ -20,6 +20,7 @@ class OrderViewModel @Inject constructor(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): ViewModel() {
 
+
     val emptyTaco = Taco(type = "", tortilla = "", timestamp = 0L)
     private val _taco = MutableLiveData<Taco>(emptyTaco)
     val taco: LiveData<Taco> = _taco

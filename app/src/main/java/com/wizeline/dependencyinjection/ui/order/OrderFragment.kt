@@ -6,11 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.annotation.VisibleForTesting
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.wizeline.dependencyinjection.R
@@ -28,9 +31,15 @@ import javax.inject.Inject
 
 
 @AndroidEntryPoint
-class OrderFragment : Fragment() {
+class OrderFragment(
+    private val viewModelFactory: ViewModelProvider.Factory? = null
+) : Fragment() {
 
-    private val viewModel: OrderViewModel by viewModels()
+    //private val viewModel: OrderViewModel by viewModels()
+    @VisibleForTesting
+    val viewModel: OrderViewModel by viewModels {
+        viewModelFactory ?: defaultViewModelProviderFactory
+    }
 
     private var _binding: FragmentOrderBinding? = null
 
