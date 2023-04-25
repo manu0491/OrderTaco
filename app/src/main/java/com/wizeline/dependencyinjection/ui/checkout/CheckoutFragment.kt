@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.fragment.app.viewModels
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.lifecycle.ViewModelProvider
 import com.wizeline.dependencyinjection.databinding.FragmentCheckoutBinding
 import com.wizeline.dependencyinjection.ui.checkout.compose.CheckoutScreen
 import com.wizeline.dependencyinjection.util.DateFormatter
@@ -18,10 +20,11 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CheckoutFragment : Fragment() {
+class CheckoutFragment() : Fragment() {
 
     private var _binding: FragmentCheckoutBinding? = null
-    private val binding get() = _binding!!
+    @VisibleForTesting
+    val binding get() = _binding!!
     @Inject lateinit var dateFormatter: DateFormatter
 
 

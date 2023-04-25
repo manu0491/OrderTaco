@@ -49,7 +49,7 @@ fun TacoItem(
         }
 
         IconButton(onClick = onClose) {
-            Icon(Icons.Filled.Close, contentDescription = "Close")
+            Icon(Icons.Filled.Close, contentDescription = "Close${taco.id}")
         }
     }
 }

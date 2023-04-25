@@ -114,6 +114,9 @@ dependencies {
     // Needed for createAndroidComposeRule, but not createComposeRule:
     debugImplementation "androidx.compose.ui:ui-test-manifest:1.4.1"
 
+    //Arch Core
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }

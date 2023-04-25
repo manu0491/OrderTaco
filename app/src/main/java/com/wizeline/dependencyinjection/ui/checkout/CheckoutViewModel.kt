@@ -1,6 +1,7 @@
 package com.wizeline.dependencyinjection.ui.checkout
 
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,8 +18,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CheckoutViewModel @Inject constructor(
-    private val tacoRepository: TacoRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    @get:VisibleForTesting val tacoRepository: TacoRepository,
+    @get:VisibleForTesting val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ): ViewModel() {
 
     private val _tacoList = MutableLiveData<List<Taco>>()
