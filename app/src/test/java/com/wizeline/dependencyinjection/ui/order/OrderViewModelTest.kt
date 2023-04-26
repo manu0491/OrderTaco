@@ -23,9 +23,6 @@ import org.robolectric.annotation.LooperMode
 class OrderViewModelTest {
 
     private val testDispatcher = UnconfinedTestDispatcher()
-    //val testScheduler = TestCoroutineScheduler()
-    //val testDispatcher = StandardTestDispatcher(testScheduler)
-    //val testScope = TestScope(testDispatcher)
 
     private val tacoDataSource = mockk<TacoDataSource>(relaxed = true)
     private val tacoRepository = mockk<TacoRepository>(relaxed = true)
