@@ -18,12 +18,14 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.HiltTestApplication
 import io.mockk.MockKAnnotations
+import io.mockk.clearAllMocks
 import io.mockk.mockk
 import io.mockk.spyk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.Matchers.*
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -53,13 +55,17 @@ class OrderFragmentTest {
         MockKAnnotations.init(this, relaxUnitFun = true)
     }
 
+    @After
+    fun `tearDown`(){
+        clearAllMocks()
+    }
     @Test
     fun `start fragment`() = runTest {
         val viewModelFactory = getOrderViewModelFactory(
             viewModel
         )
         launchFragmentInHiltContainer(
-            fragmentInstance = OrderFragment(viewModelFactory)
+            fragmentClass = OrderFragment(viewModelFactory)
         ){
             assertThat(this).isInstanceOf(OrderFragment::class.java)
         }
@@ -71,7 +77,7 @@ class OrderFragmentTest {
             viewModel
         )
         launchFragmentInHiltContainer(
-            fragmentInstance = OrderFragment(viewModelFactory)
+            fragmentClass = OrderFragment(viewModelFactory)
         ){
             onView(withId(R.id.title)).check(matches(withText(getString(R.string.tacos_order))))
             onView(withId(R.id.tortilla_selector_text)).check(matches(withText(getString(R.string.tortilla_selector))))
@@ -86,7 +92,7 @@ class OrderFragmentTest {
             viewModel
         )
         launchFragmentInHiltContainer(
-            fragmentInstance = OrderFragment(viewModelFactory)
+            fragmentClass = OrderFragment(viewModelFactory)
         ){
             val fragment = this as OrderFragment
 

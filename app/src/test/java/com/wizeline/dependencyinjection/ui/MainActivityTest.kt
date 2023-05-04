@@ -14,6 +14,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest{
 
+    //This is the main rule for activity
+    //without it the activity won't start
     @Rule
     @JvmField
     var activityRule = ActivityScenarioRule(MainActivity::class.java)

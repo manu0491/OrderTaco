@@ -13,6 +13,7 @@ import com.wizeline.dependencyinjection.repository.TacoRepository
 import com.wizeline.dependencyinjection.ui.checkout.compose.CheckoutScreen
 import com.wizeline.dependencyinjection.util.DateFormatter
 import com.wizeline.dependencyinjection.utils.Utils
+import com.wizeline.dependencyinjection.utils.Utils.createId
 import com.wizeline.dependencyinjection.utils.getOrAwaitValue
 import com.wizeline.dependencyinjection.utils.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -45,7 +46,7 @@ class CheckoutFragmentTest{
 
     private val testDispatcher = UnconfinedTestDispatcher()
     private val tacoLocalDataSource = mockk<TacoLocalDataSource>(relaxed = true){
-        coEvery { getAllTacos() } returns Utils.createTacoListWithId()
+        coEvery { getAllTacos() } returns Utils.createTacoList().createId()
     }
     private val mockTacoRepository = spyk(TacoRepository(tacoLocalDataSource))
     private val viewModel = spyk(CheckoutViewModel(mockTacoRepository,testDispatcher))

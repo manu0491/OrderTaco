@@ -11,29 +11,24 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import com.wizeline.dependencyinjection.HiltTestActivity
 
-inline fun <reified T : Fragment> launchFragmentInHiltContainer(
+inline fun <reified F : Fragment> launchFragmentInHiltContainer(
     fragmentArgs: Bundle? = null,
     @StyleRes themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
     crossinline action: Fragment.() -> Unit = {}
 ) {
-    val startActivityIntent = Intent.makeMainActivity(
-        ComponentName(
-            ApplicationProvider.getApplicationContext(),
-            HiltTestActivity::class.java
-        )
+    val componentName = ComponentName(
+        ApplicationProvider.getApplicationContext(),
+        HiltTestActivity::class.java
     )
-
-    ActivityScenario.launch<HiltTestActivity>(startActivityIntent).onActivity { activity ->
-        val fragment: Fragment = activity.supportFragmentManager.fragmentFactory.instantiate(
-            Preconditions.checkNotNull(T::class.java.classLoader),
-            T::class.java.name
-        )
+    val startActivityIntent = Intent.makeMainActivity(componentName)
+    ActivityScenario.launch<HiltTestActivity>(startActivityIntent).onActivity { activity->
+        val fragment = activity.supportFragmentManager.fragmentFactory
+            .instantiate(requireNotNull(F::class.java.classLoader), F::class.java.name)
         fragment.arguments = fragmentArgs
         activity.supportFragmentManager
             .beginTransaction()
-            .add(android.R.id.content, fragment, "")
+            .add(android.R.id.content,fragment,fragment::class.java.name)
             .commitNow()
-
         fragment.action()
     }
 }
@@ -41,27 +36,22 @@ inline fun <reified T : Fragment> launchFragmentInHiltContainer(
 inline fun <reified T : Fragment> launchFragmentInHiltContainer(
     fragmentArgs: Bundle? = null,
     @StyleRes themeResId: Int = R.style.FragmentScenarioEmptyFragmentActivityTheme,
-    fragmentInstance: T,
+    fragmentClass: T,
     crossinline action: Fragment.() -> Unit = {}
 ) {
-    val startActivityIntent = Intent.makeMainActivity(
-        ComponentName(
-            ApplicationProvider.getApplicationContext(),
-            HiltTestActivity::class.java
-        )
+    val componentName = ComponentName(
+        ApplicationProvider.getApplicationContext(),
+        HiltTestActivity::class.java
     )
-
-    ActivityScenario.launch<HiltTestActivity>(startActivityIntent).onActivity { activity ->
-        val fragment: Fragment = activity.supportFragmentManager.fragmentFactory.instantiate(
-            Preconditions.checkNotNull(fragmentInstance::class.java.classLoader),
-            fragmentInstance::class.java.name
-        )
+    val startActivityIntent = Intent.makeMainActivity(componentName)
+    ActivityScenario.launch<HiltTestActivity>(startActivityIntent).onActivity { activity->
+        val fragment = activity.supportFragmentManager.fragmentFactory
+            .instantiate(requireNotNull(fragmentClass::class.java.classLoader), fragmentClass::class.java.name)
         fragment.arguments = fragmentArgs
         activity.supportFragmentManager
             .beginTransaction()
-            .add(android.R.id.content, fragment, "")
+            .add(android.R.id.content,fragment,fragment::class.java.name)
             .commitNow()
-
         fragment.action()
     }
 }

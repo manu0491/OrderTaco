@@ -34,15 +34,15 @@ object Utils {
             )
         )
     }
-    fun createTacoListWithId(): List<Taco> {
-        val list = createTacoList()
-        val newList = mutableListOf<Taco>()
+
+    fun List<Taco>.createId(): List<Taco>{
         var count = 0L
-        for (taco in list){
+        val newList = mutableListOf<Taco>()
+        return this.mapTo(newList){ _taco ->
             count++
+            val taco = _taco.copy()
             taco.id = count
-            newList.add(taco)
+            taco
         }
-        return newList
     }
 }
