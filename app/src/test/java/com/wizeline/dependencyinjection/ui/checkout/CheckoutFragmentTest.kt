@@ -7,6 +7,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
+import com.wizeline.dependencyinjection.data.Taco
 import com.wizeline.dependencyinjection.data.TacoLocalDataSource
 import com.wizeline.dependencyinjection.repository.TacoRepository
 import com.wizeline.dependencyinjection.ui.checkout.compose.CheckoutScreen
@@ -21,6 +22,7 @@ import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -57,22 +59,32 @@ class CheckoutFragmentTest{
         every { mockDateFormatter.formatDate(any()) } returns "Today"
     }
 
+    @After
+    fun `tearDown`(){
+        clearAllMocks()
+    }
     @Test
     fun `display three items on lazy list and remove one item`() = runTest {
+        //Create the UI
         composeTestRule.setContent {
             MaterialTheme {
                 CheckoutScreen(dateFormatter = mockDateFormatter, viewModel = viewModel)
             }
         }
+        //Check if the taco list exist
         val list = viewModel.tacoList.value!!
         composeTestRule.onNodeWithText(list[0].type).assertIsDisplayed()
         composeTestRule.onNodeWithText(list[1].type).assertIsDisplayed()
         composeTestRule.onNodeWithText(list[2].type).performScrollTo()
         composeTestRule.onNodeWithText(list[2].type).assertIsDisplayed()
+        //Removed the taco
         val itemOne = hasContentDescription("Close1")
         composeTestRule.onNode(itemOne).performClick()
         val newList = viewModel.tacoList.getOrAwaitValue()
+        //Assert and verify results
         assertThat(newList.size).isEqualTo(2)
+        coVerify(exactly = 1) { mockTacoRepository.removeTaco(any()) }
+        coVerify(exactly = 1) { tacoLocalDataSource.removeTaco(any()) }
     }
 
     @Test
@@ -88,5 +100,35 @@ class CheckoutFragmentTest{
             composeTestRule.onNodeWithText("Suadero").assertIsDisplayed()
 
         }
+    }
+
+    @Test
+    fun `review if the removed taco is the first element in the list`(){
+        //Create the UI
+        composeTestRule.setContent {
+            MaterialTheme {
+                CheckoutScreen(dateFormatter = mockDateFormatter, viewModel = viewModel)
+            }
+        }
+        //Check if the taco list exist
+        val list = viewModel.tacoList.value!!
+        composeTestRule.onNodeWithText(list[0].type).assertIsDisplayed()
+        composeTestRule.onNodeWithText(list[1].type).assertIsDisplayed()
+        composeTestRule.onNodeWithText(list[2].type).performScrollTo()
+        composeTestRule.onNodeWithText(list[2].type).assertIsDisplayed()
+        //Capture the removed taco
+        val captureTaco = slot<Taco>()
+        coEvery { tacoLocalDataSource.removeTaco(capture(captureTaco)) } just runs
+
+        //Removed the taco
+        val itemOne = hasContentDescription("Close1")
+        composeTestRule.onNode(itemOne).performClick()
+        //Wait until tacoList change
+        val newList = viewModel.tacoList.getOrAwaitValue()
+        //Assert and verify results
+        assertThat(newList.size).isEqualTo(2)
+        coVerify(exactly = 1) { mockTacoRepository.removeTaco(any()) }
+        coVerify(atLeast = 1) { tacoLocalDataSource.removeTaco(any()) }
+        assertThat(captureTaco.captured).isEqualTo(list[0])
     }
 }
